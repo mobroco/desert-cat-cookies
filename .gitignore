@@ -1,2 +1,11 @@
+bin
+dist
+node_modules
+tmp
 .idea
+sprout.txt
+what.yaml
+what.encrypted
+what.key
+whatever.exe
 .DS_Store

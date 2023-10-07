@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" class='{{ .site.HTMLClasses }}'>
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="description" content="{{ .site.Description }}">
+    <title>{{ .site.Title }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ .site.Favicon }}">
+    <link rel="stylesheet" type="text/css" href="public/whatever/whatever.css">
+</head>
+<body id='{{ .site.ID }}' class='{{ .site.BodyClasses }}'>
+<div id="root"></div>
+<noscript>
+    This page requires JavaScript!
+</noscript>
+<script>window.seed = '{{ .name }}';</script>
+<script src="/dist/bundle.js"></script>
+</body>
+</html>
