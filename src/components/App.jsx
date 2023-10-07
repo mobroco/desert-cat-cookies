@@ -1,11 +1,11 @@
-import {QueryClient, QueryClientProvider} from "react-query";
-import Hello from "./Hello";
-const queryClient = new QueryClient()
+import EstimateForm from "./EstimateForm";
+import Hero from "./Hero";
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hello />
-    </QueryClientProvider>
+    <>
+      <Hero />
+      <EstimateForm />
+    </>
   )
 }
