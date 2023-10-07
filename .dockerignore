@@ -2,6 +2,3 @@ bin
 dist
 node_modules
 tmp
-what.local.yaml
-what.yaml
-grow.sh
