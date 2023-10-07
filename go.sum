@@ -1,4 +1,4 @@
 github.com/go-chi/chi/v5 v5.0.10 h1:rLz5avzKpjqxrYwXNfmjkrYYXOyLJd37pz53UFHC6vk=
 github.com/go-chi/chi/v5 v5.0.10/go.mod h1:DslCQbL2OYiznFReuXYUmQ2hGd1aDpCnlMNITLSKoi8=
-github.com/mobroco/whatever v0.0.0-20231007224317-4f82d7630bf6 h1:YqQk4u1Sbs7prYU+7UzMLuheQvWWdwmMfn/Rr4j/xaU=
-github.com/mobroco/whatever v0.0.0-20231007224317-4f82d7630bf6/go.mod h1:inqpPxlN7ySD9L3wMkUlBQOJt9bKshmPm3fiXDSoKsY=
+github.com/mobroco/whatever v0.1.0 h1:Px6sqrEQGu80qN1V7GK3NlRpn5J2GHkxbyn2baRhjsE=
+github.com/mobroco/whatever v0.1.0/go.mod h1:inqpPxlN7ySD9L3wMkUlBQOJt9bKshmPm3fiXDSoKsY=
