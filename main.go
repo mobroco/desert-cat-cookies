@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/mobroco/whatever/cmd"
+	"github.com/mobroco/desert-cat-cookies/cmd"
 )
 
 func main() {
