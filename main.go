@@ -7,5 +7,6 @@ import (
 )
 
 func main() {
+	fmt.Println("hello")
 	fmt.Println(cmd.Execute())
 }
