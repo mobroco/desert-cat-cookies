@@ -78,14 +78,20 @@ export default function EstimateForm() {
 
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridCookieQuantity">
-                <Form.Label>Cookie Quantity</Form.Label>
+                <Form.Label>Cookies by the Dozen</Form.Label>
                 <Form.Select defaultValue="Choose..."
                              onChange={(e) => setCookieQuantity(e.target.value)} >
-                  <option>12</option>
-                  <option>24</option>
-                  <option>36</option>
-                  <option>48</option>
-                  <option>More than 48...</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                  <option>More than 10 dozen...</option>
                 </Form.Select>
               </Form.Group>
 
@@ -101,7 +107,7 @@ export default function EstimateForm() {
 
             <Row className="mb-3">
               <Form.Group id="formGridAnythingElse">
-                <Form.Label>Anything else?</Form.Label>
+                <Form.Label>Please include details about your cookie order here</Form.Label>
                 <Form.Control as="textarea" rows={4}
                               onChange={(e) => setAnythingElse(e.target.value)} />
               </Form.Group>
