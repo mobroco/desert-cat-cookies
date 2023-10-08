@@ -1,5 +1,11 @@
+import Hero from "./Hero";
+import EstimateForm from "./EstimateForm";
+
 export default function App() {
   return (
-    <h2>Hello?</h2>
+    <>
+      <Hero />
+      <EstimateForm />
+    </>
   )
 }
