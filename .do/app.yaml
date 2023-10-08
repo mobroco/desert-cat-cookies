@@ -1,0 +1,29 @@
+name: desert-cat-cookies
+region: tor
+domains:
+- domain: desert-cat-cookies.whatever.dev
+  type: PRIMARY
+  zone: whatever.dev
+features:
+- buildpack-stack=ubuntu-22
+ingress:
+  rules:
+  - component:
+      name: desert-cat-cookies
+    match:
+      path:
+        prefix: /
+services:
+- name: main
+  dockerfile_path: Dockerfile
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: mobroco/desert-cat-cookies
+  http_port: 3000
+  instance_count: 1
+  instance_size_slug: basic-xs
+  source_dir: /
+alerts:
+  - rule: DEPLOYMENT_FAILED
+  - rule: DOMAIN_FAILED
