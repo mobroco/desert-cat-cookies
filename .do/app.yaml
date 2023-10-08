@@ -1,7 +1,7 @@
 name: desert-cat-cookies
 region: tor
 domains:
-- domain: desert-cat-cookies.whatever.dev
+- domain: desert-cat-cookiez.whatever.dev
   type: PRIMARY
   zone: whatever.dev
 features:
