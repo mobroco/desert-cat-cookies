@@ -22,14 +22,14 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 go build -o bin/app
+RUN CGO_ENABLED=0 go build -o bin/whatever
 
 FROM gcr.io/distroless/static-debian11:nonroot
 
 WORKDIR /my
 
 COPY --from=js-builder /src/dist dist
-COPY --from=bin-builder /src/bin/app app
+COPY --from=bin-builder /src/bin/whatever whatever
 COPY public public
 
-CMD ["/my/app"]
+CMD ["/my/whatever"]
