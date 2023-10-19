@@ -9,3 +9,4 @@ what.encrypted
 what.key
 whatever.exe
 .DS_Store
+sendgrid.env

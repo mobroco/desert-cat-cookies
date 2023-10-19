@@ -2,11 +2,16 @@ package cmd
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -22,8 +27,11 @@ type Estimate struct {
 }
 
 func Execute() error {
-	r := chi.NewRouter()
+	sendGrid := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
+	from := mail.NewEmail("Clarice", "clarice@em2928.desertcatcookies.com")
+	to := mail.NewEmail("Stacy", "stacymulhern@gmail.com")
 
+	r := chi.NewRouter()
 	workDir, _ := os.Getwd()
 	filesDir := http.Dir(filepath.Join(workDir, "public"))
 	FileServer(r, "/public", filesDir)
@@ -41,8 +49,22 @@ func Execute() error {
 		raw, _ := io.ReadAll(r.Body)
 		var estimate Estimate
 		_ = json.Unmarshal(raw, &estimate)
-		pretty, _ := json.MarshalIndent(estimate, "", "  ")
-		panic("estimate: " + string(pretty))
+
+		var sb strings.Builder
+		sb.WriteString("First Name: " + estimate.FirstName + "\n")
+		sb.WriteString("Last Name: " + estimate.LastName + "\n")
+		sb.WriteString("Email: " + estimate.Email + "\n")
+		sb.WriteString("Phone Number: " + estimate.PhoneNumber + "\n")
+		sb.WriteString("Cookie Theme: " + estimate.CookieTheme + "\n")
+		sb.WriteString("Pickup Date: " + estimate.PickupDate + "\n")
+		sb.WriteString("Anything Else: " + estimate.AnythingElse + "\n")
+		message := mail.NewSingleEmail(from, "Estimate Request", to, sb.String(), "")
+		response, err := sendGrid.Send(message)
+		if err != nil {
+			log.Println(err)
+		} else {
+			fmt.Println("email sent", response.StatusCode)
+		}
 	})
 
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
