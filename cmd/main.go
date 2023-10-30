@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
@@ -32,15 +31,11 @@ type Estimate struct {
 }
 
 func Execute() error {
-	var db int
-	if num := os.Getenv("REDIS_DB"); num != "" {
-		db, _ = strconv.Atoi(num)
-	}
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     os.Getenv("REDIS_ADDR"),
 		Username: os.Getenv("REDIS_USERNAME"),
 		Password: os.Getenv("REDIS_PASSWORD"),
-		DB:       db,
+		DB:       0,
 		TLSConfig: &tls.Config{
 			MinVersion: tls.VersionTLS12,
 		},
@@ -86,7 +81,7 @@ func Execute() error {
 			fmt.Println("email sent", response.StatusCode)
 		}
 		now := time.Now()
-		key := fmt.Sprintf("%s-%d", strings.ReplaceAll(strings.ToLower(estimate.Email), " ", "-"), int(now.Unix()))
+		key := fmt.Sprintf("desert-cat-cookies:estimates:%s-%s", now.Format("20060102"), strings.ReplaceAll(strings.ToLower(estimate.Email), " ", "-"))
 		rdb.Set(r.Context(), key, string(raw), 0)
 	})
 
