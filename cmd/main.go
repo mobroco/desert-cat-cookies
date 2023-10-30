@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -8,8 +9,11 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"time"
 
+	"github.com/redis/go-redis/v9"
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 
@@ -28,6 +32,20 @@ type Estimate struct {
 }
 
 func Execute() error {
+	var db int
+	if num := os.Getenv("REDIS_DB"); num != "" {
+		db, _ = strconv.Atoi(num)
+	}
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     os.Getenv("REDIS_ADDR"),
+		Username: os.Getenv("REDIS_USERNAME"),
+		Password: os.Getenv("REDIS_PASSWORD"),
+		DB:       db,
+		TLSConfig: &tls.Config{
+			MinVersion: tls.VersionTLS12,
+		},
+	})
+
 	sendGrid := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
 	from := mail.NewEmail("Clarice", "clarice@em2928.desertcatcookies.com")
 	to := mail.NewEmail("Stacy", "stacymulhern@gmail.com")
@@ -67,6 +85,9 @@ func Execute() error {
 		} else {
 			fmt.Println("email sent", response.StatusCode)
 		}
+		now := time.Now()
+		key := fmt.Sprintf("%s-%d", strings.ReplaceAll(strings.ToLower(estimate.Email), " ", "-"), int(now.Unix()))
+		rdb.Set(r.Context(), key, string(raw), 0)
 	})
 
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
