@@ -17,13 +17,14 @@ import (
 )
 
 type Estimate struct {
-	FirstName    string `json:"first_name"`
-	LastName     string `json:"last_name"`
-	Email        string `json:"email"`
-	PhoneNumber  string `json:"phone_number"`
-	CookieTheme  string `json:"cookie_theme"`
-	PickupDate   string `json:"pickup_date"`
-	AnythingElse string `json:"anything_else"`
+	FirstName      string `json:"first_name"`
+	LastName       string `json:"last_name"`
+	Email          string `json:"email"`
+	PhoneNumber    string `json:"phone_number"`
+	CookieTheme    string `json:"cookie_theme"`
+	CookieQuantity string `json:"cookie_quantity"`
+	PickupDate     string `json:"pickup_date"`
+	AnythingElse   string `json:"anything_else"`
 }
 
 func Execute() error {
@@ -56,6 +57,7 @@ func Execute() error {
 		sb.WriteString("Email: " + estimate.Email + "\n")
 		sb.WriteString("Phone Number: " + estimate.PhoneNumber + "\n")
 		sb.WriteString("Cookie Theme: " + estimate.CookieTheme + "\n")
+		sb.WriteString("Cookie Quantity: " + estimate.CookieQuantity + "\n")
 		sb.WriteString("Pickup Date: " + estimate.PickupDate + "\n")
 		sb.WriteString("Anything Else: " + estimate.AnythingElse + "\n")
 		message := mail.NewSingleEmail(from, "Estimate Request", to, sb.String(), "")
