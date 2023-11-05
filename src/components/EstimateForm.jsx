@@ -13,7 +13,7 @@ export default function EstimateForm() {
   const [phoneNumber, setPhoneNumber] = useState();
   const [cookieTheme, setCookieTheme] = useState();
   const [cookieQuantity, setCookieQuantity] = useState();
-  const [pickupDate, setPickupDate] = useState(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
+  const [pickupDate, setPickupDate] = useState(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
   const [anythingElse, setAnythingElse] = useState();
 
   return (
@@ -101,7 +101,9 @@ export default function EstimateForm() {
                               placeholder={pickupDate}
                               value={pickupDate}
                               onChange={(e) => setPickupDate(e.target.value)}/>
-
+                <Form.Text className="text-muted">
+                  <i className="fa-sharp fa-regular fa-circle-exclamation text-danger"/> Orders for November are closed
+                </Form.Text>
               </Form.Group>
             </Row>
 
