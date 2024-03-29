@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,9 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
-	"github.com/redis/go-redis/v9"
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 
@@ -31,15 +28,6 @@ type Estimate struct {
 }
 
 func Execute() error {
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_ADDR"),
-		Username: os.Getenv("REDIS_USERNAME"),
-		Password: os.Getenv("REDIS_PASSWORD"),
-		DB:       0,
-		TLSConfig: &tls.Config{
-			MinVersion: tls.VersionTLS12,
-		},
-	})
 
 	sendGrid := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
 	from := mail.NewEmail("Clarice", "clarice@em2928.desertcatcookies.com")
@@ -64,6 +52,8 @@ func Execute() error {
 		var estimate Estimate
 		_ = json.Unmarshal(raw, &estimate)
 
+		log.Println(string(raw))
+
 		var sb strings.Builder
 		sb.WriteString("First Name: " + estimate.FirstName + "\n")
 		sb.WriteString("Last Name: " + estimate.LastName + "\n")
@@ -80,9 +70,6 @@ func Execute() error {
 		} else {
 			fmt.Println("email sent", response.StatusCode)
 		}
-		now := time.Now()
-		key := fmt.Sprintf("desert-cat-cookies:estimates:%s-%s", now.Format("20060102"), strings.ReplaceAll(strings.ToLower(estimate.Email), " ", "-"))
-		rdb.Set(r.Context(), key, string(raw), 0)
 	})
 
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
