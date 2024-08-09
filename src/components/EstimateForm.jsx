@@ -102,7 +102,7 @@ export default function EstimateForm() {
                               value={pickupDate}
                               onChange={(e) => setPickupDate(e.target.value)}/>
                 <Form.Text className="text-muted">
-                  <i className="fa-sharp fa-regular fa-circle-exclamation text-danger"/> Orders are closed until July 5th!
+                  <i className="fa-sharp fa-regular fa-circle-exclamation text-info"/> Next availability September 1st!
                 </Form.Text>
               </Form.Group>
             </Row>
